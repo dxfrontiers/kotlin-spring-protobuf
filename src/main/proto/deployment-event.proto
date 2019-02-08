@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package model;
+
+option java_package = "de.digitalfrontiers.protobuf.deployment.model";
+option java_outer_classname = "DeploymentEventProto";
+
+message DeploymentEvents {
+    repeated DeploymentEvent deploymentEvent = 1;
+}
+
+message DeploymentEvent {
+    int32 id = 1;
+    Target target = 2;
+    string technology = 3;
+    string product = 4;
+    string version = 5;
+    Status status = 6;
+
+    enum Target {
+        DEVELOPMENT = 0;
+        TEST = 1;
+        ACCEPTANCE = 2;
+        PRODUCTION = 3;
+    }
+
+    enum Status {
+        SUCCESSFUL = 0;
+        FAILED = 1;
+        ABORTED = 2;
+    }
+}
