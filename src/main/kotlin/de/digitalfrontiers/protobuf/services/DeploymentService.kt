@@ -1,9 +1,9 @@
 package de.digitalfrontiers.protobuf.services
 
-import de.digitalfrontiers.protobuf.convert.DeploymentEventConverters.toProto
-import de.digitalfrontiers.protobuf.convert.DeploymentEventConverters.toEntity
-import de.digitalfrontiers.protobuf.deployment.model.DeploymentEventProto.DeploymentEvents
+import de.digitalfrontiers.protobuf.convert.toEntity
+import de.digitalfrontiers.protobuf.convert.toProto
 import de.digitalfrontiers.protobuf.deployment.model.DeploymentEventProto.DeploymentEvent
+import de.digitalfrontiers.protobuf.deployment.model.DeploymentEventProto.DeploymentEvents
 import de.digitalfrontiers.protobuf.persistence.DeploymentEventRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
