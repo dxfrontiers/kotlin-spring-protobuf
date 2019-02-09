@@ -97,8 +97,8 @@ class DeploymentControllerTest(@Autowired val mockMvc: MockMvc) {
             .andExpect(status().isBadRequest)
     }
 
-    private fun createDeploymentEvent(id: Int): DeploymentEvent {
-        return DeploymentEvent
+    private fun createDeploymentEvent(id: Int): DeploymentEvent =
+        DeploymentEvent
             .newBuilder()
             .setId(id)
             .setProduct("Oracle11")
@@ -107,5 +107,4 @@ class DeploymentControllerTest(@Autowired val mockMvc: MockMvc) {
             .setVersion("0.0.1")
             .setStatus(DeploymentEvent.Status.SUCCESSFUL)
             .build()
-    }
 }

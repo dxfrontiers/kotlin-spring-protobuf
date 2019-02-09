@@ -9,9 +9,8 @@ import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter
 class Application {
 
     @Bean
-    fun protobufHttpMessageConverter(): ProtobufHttpMessageConverter {
-        return ProtobufHttpMessageConverter()
-    }
+    fun protobufHttpMessageConverter(): ProtobufHttpMessageConverter =
+        ProtobufHttpMessageConverter()
 }
 
 fun main(args: Array<String>) {

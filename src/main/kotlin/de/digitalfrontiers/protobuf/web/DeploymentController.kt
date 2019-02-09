@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.*
 class DeploymentController(val deploymentService: DeploymentService) {
 
     @GetMapping(value = ["/deployments/{deploymentId}"], produces = [PROTOBUF_MEDIA_TYPE_VALUE])
-    fun findDeploymentById(@PathVariable deploymentId: Int): ResponseEntity<DeploymentEvent> {
-        return deploymentService
+    fun findDeploymentById(@PathVariable deploymentId: Int): ResponseEntity<DeploymentEvent> =
+        deploymentService
             .findDeploymentById(deploymentId)
             ?.let {
                 ResponseEntity.ok(it)
             } ?: ResponseEntity(HttpStatus.NOT_FOUND)
-    }
 
     @GetMapping(value = ["/deployments"], produces = [PROTOBUF_MEDIA_TYPE_VALUE])
-    fun findDeploymentsByTarget(@RequestParam target: String): ResponseEntity<DeploymentEvents> {
-        return runCatching {
+    fun findDeploymentsByTarget(@RequestParam target: String): ResponseEntity<DeploymentEvents> =
+        runCatching {
             DeploymentEvent.Target.valueOf(target)
         }.map {
             deploymentService
@@ -33,16 +32,14 @@ class DeploymentController(val deploymentService: DeploymentService) {
         }.getOrElse {
             ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-    }
 
     @PostMapping(value = ["/deployments"], consumes = [PROTOBUF_MEDIA_TYPE_VALUE], produces = [PROTOBUF_MEDIA_TYPE_VALUE])
-    fun saveDeployment(@RequestBody deploymentEvent: DeploymentEvent): ResponseEntity<DeploymentEvent> {
-        return deploymentService
+    fun saveDeployment(@RequestBody deploymentEvent: DeploymentEvent): ResponseEntity<DeploymentEvent> =
+        deploymentService
             .saveDeployment(deploymentEvent)
             .let {
                 ResponseEntity.ok(it)
             }
-    }
 
     companion object {
         const val PROTOBUF_MEDIA_TYPE_VALUE = "application/x-protobuf"
