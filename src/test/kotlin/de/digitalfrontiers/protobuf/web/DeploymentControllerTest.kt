@@ -28,10 +28,10 @@ class DeploymentControllerTest(@Autowired val mockMvc: MockMvc) {
     @Test
     fun `Assert response can be parsed as protobuf deployment event`() {
         val event = createDeploymentEvent(42)
-        whenever(deploymentService.findDeploymentById(anyInt())).thenReturn(event)
+        whenever(deploymentService.findDeploymentById(event.id)).thenReturn(event)
 
         val response = mockMvc
-            .perform(get("/api/deployments/42"))
+            .perform(get("/api/deployments/${event.id}"))
             .andExpect(status().isOk)
             .andReturn()
             .response
@@ -44,8 +44,6 @@ class DeploymentControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `Assert not found when deployment event is not known`() {
-        whenever(deploymentService.findDeploymentById(anyInt())).thenReturn(null)
-
         mockMvc
             .perform(get("/api/deployments/42"))
             .andExpect(status().isNotFound)
@@ -79,7 +77,7 @@ class DeploymentControllerTest(@Autowired val mockMvc: MockMvc) {
         whenever(deploymentService.findDeploymentsByTarget(DeploymentEvent.Target.ACCEPTANCE)).thenReturn(events)
 
         val response = mockMvc
-            .perform(get("/api/deployments?target=ACCEPTANCE"))
+            .perform(get("/api/deployments").param("target", "ACCEPTANCE"))
             .andExpect(status().isOk)
             .andReturn()
             .response
@@ -93,7 +91,7 @@ class DeploymentControllerTest(@Autowired val mockMvc: MockMvc) {
     @Test
     fun `Assert bad request when unknown target is request`() {
         mockMvc
-            .perform(get("/api/deployments?target=UNKNOWN"))
+            .perform(get("/api/deployments").param("target", "UNKNOWN"))
             .andExpect(status().isBadRequest)
     }
 
