@@ -1,6 +1,14 @@
 # kotlin-spring-protobuf
 Demo project to show the integration of these three technologies
 
+## Initial setup
+For the first execution the protobuf file(s) need to be compiled to the target language (Java in this case).
+Executing the following command in the project root folder is sufficient:
+````text
+./gradlew build
+````
+The protobuf classes will be generated first, followed by the kotlin sources.
+
 ## Communicating with the REST endpoint
 For quick demonstrations without an explicit client cURL can be used to communicate with the endpoint.
 
